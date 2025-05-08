@@ -161,9 +161,14 @@ def synth_one_sample(targets, predictions, vocoder, model_config, preprocess_con
     return fig, wav_reconstruction, wav_prediction, basename
 
 
-def synth_samples(targets, predictions, vocoder, model_config, preprocess_config, path):
-
+def synth_samples(targets, predictions, vocoder, model_config, preprocess_config, path, control_values):
+    pitch_control, energy_control, duration_control = control_values
+    
     basenames = targets[0]
+    # add pitch, energy, and duration to basenames
+    control_values_str = f"p{pitch_control}_e{energy_control}_d{duration_control}"
+    basenames = [f"{basename}_{control_values_str}" for basename in basenames]
+
     for i in range(len(predictions[0])):
         basename = basenames[i]
         src_len = predictions[8][i].item()

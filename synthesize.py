@@ -105,6 +105,7 @@ def synthesize(model, step, configs, vocoder, batchs, control_values):
                 model_config,
                 preprocess_config,
                 train_config["path"]["result_path"],
+                control_values, # pass control values to synth_samples
             )
 
 
